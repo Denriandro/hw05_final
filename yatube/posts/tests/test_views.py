@@ -47,6 +47,7 @@ class PostViewTest(TestCase):
     def setUp(self):
         self.guest_client = Client()
         self.client.force_login(self.user)
+        cache.clear()
 
     @classmethod
     def tearDownClass(cls):
