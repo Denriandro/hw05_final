@@ -1,16 +1,14 @@
 import shutil
 import tempfile
+from http import HTTPStatus
 
+from django import forms
 from django.conf import settings
 from django.core.cache import cache
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django import forms
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
-from http import HTTPStatus
-
-from posts.models import Group, Post, User, Comment, Follow
-
+from posts.models import Comment, Follow, Group, Post, User
 
 TEMP_MEDIA_ROOT = tempfile.mkdtemp(dir=settings.BASE_DIR)
 
