@@ -1,6 +1,7 @@
-from core.models import CreatedModel
 from django.contrib.auth import get_user_model
 from django.db import models
+
+from core.models import CreatedModel
 
 User = get_user_model()
 
@@ -31,7 +32,7 @@ class Post(CreatedModel):
         verbose_name='Выберите группу (необязательно)',
     )
     image = models.ImageField(
-        'Картинка',
+        verbose_name='Картинка',
         upload_to='posts/',
         blank=True,
         help_text='Загрузить картинку',

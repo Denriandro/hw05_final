@@ -1,7 +1,9 @@
 from http import HTTPStatus
 
 from django.test import Client, TestCase
-from posts.models import Group, Post, User
+from django.urls import reverse
+
+from posts.models import Group, Post, User, Comment, Follow
 
 
 class PostURLTests(TestCase):
@@ -58,8 +60,30 @@ class PostURLTests(TestCase):
             f'/posts/{self.post.pk}/': 'posts/post_detail.html',
             f'/posts/{self.post.pk}/edit/': 'posts/create_post.html',
             '/create/': 'posts/create_post.html',
+            f'/follow/': 'posts/follow.html',
         }
         for address, template in templates_url_names.items():
             with self.subTest(address=address):
                 response = self.authorized_client.get(address)
                 self.assertTemplateUsed(response, template)
+
+    def test_follow_unfollow(self):
+        """Проверка подписки/отписки."""
+        redirect_to_profile = {
+            'posts:profile_follow',
+            'posts:profile_unfollow',
+        }
+        for url in redirect_to_profile:
+            with self.subTest(url=url):
+                response = self.authorized_client.get(reverse(
+                    url, args=(self.author,)))
+                redirect = reverse('posts:profile', args=(self.author,))
+                self.assertRedirects(response, redirect, HTTPStatus.FOUND)
+
+    def test_comment(self):
+        """Проверка комментов."""
+        response = self.authorized_client.get(reverse(
+            'posts:add_comment', args=(self.post.id,)
+        ))
+        redirect = reverse('posts:post_detail', args=(self.post.id,))
+        self.assertRedirects(response, redirect, HTTPStatus.FOUND)
