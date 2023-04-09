@@ -67,6 +67,7 @@ class PostViewTest(TestCase):
             reverse('posts:post_edit', kwargs={'post_id': self.post.id}):
                 'posts/create_post.html',
             reverse('posts:post_create'): 'posts/create_post.html',
+            reverse('posts:follow_index'): 'posts/follow.html',
         }
         for reverse_name, template in templates_page_names.items():
             with self.subTest(template=template):

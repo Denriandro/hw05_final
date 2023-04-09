@@ -53,13 +53,13 @@ def profile(request, username):
 
 def post_detail(request, post_id):
     """Страница поста."""
-    one_post = get_object_or_404(Post, id=post_id)
+    one_post = get_object_or_404(Post, pk=post_id)
     form = CommentForm(request.POST or None)
-    comment = Comment.objects.filter(post=post_id)
+    comments = Comment.objects.filter(post=post_id)
     context = {
         'one_post': one_post,
         'form': form,
-        'comment': comment,
+        'comments': comments,
     }
     return render(request, 'posts/post_detail.html', context)
 
@@ -76,29 +76,27 @@ def post_create(request):
         post.author_id = request.user.id
         form.save()
         return redirect('posts:profile', request.user.username)
-    form = PostForm()
     return render(request, 'posts/create_post.html', {'form': form})
 
 
 @login_required
 def post_edit(request, post_id):
     """Редактирование поста."""
-    object_post = get_object_or_404(Post, id=post_id)
-    if object_post.author == request.user:
-        form = PostForm(
-            request.POST or None,
-            files=request.FILES or None,
-            instance=object_post
-        )
-        context = {
-            'is_edit': True,
-            'form': form
-        }
-        if form.is_valid():
-            form.save()
-            return redirect('posts:post_detail', post_id=post_id)
-        return render(request, 'posts/create_post.html', context)
-    return redirect('posts:post_detail', post_id=post_id)
+    post = get_object_or_404(Post, pk=post_id)
+    if post.author != request.user:
+        return redirect('posts:post_detail', post_id)
+    form = PostForm(
+        request.POST or None,
+        files=request.FILES or None,
+        instance=post)
+    context = {
+        'is_edit': True,
+        'form': form
+    }
+    if form.is_valid():
+        form.save()
+        return redirect('posts:post_detail', post_id)
+    return render(request, 'posts/create_post.html', context)
 
 
 @login_required

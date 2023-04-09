@@ -42,8 +42,8 @@
       {% include 'posts/includes/add_comment.html'%}
       </p>
 
-        {% if request.user.is_authenticated %}
-        <a class="btn btn-primary" href="{% url 'posts:post_create' %}">
+        {% if request.user == one_post.author %}
+        <a class="btn btn-primary" href="{% url 'posts:post_edit' one_post.id %}">
               редактировать запись
             </a>
         {% endif %}

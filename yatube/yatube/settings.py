@@ -26,6 +26,8 @@ SECRET_KEY = '_89d!oq($-%alsno%a^n1%%o8bh(z&mk6%a9jl(a@ubs1^a=6h'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    'www.denriando.pythonanywhere.com',
+    'denriando.pythonanywhere.com',
     'localhost',
     '127.0.0.1',
     '[::1]',
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'debug_toolbar',
     'sorl.thumbnail',
 ]
 
@@ -56,6 +59,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
+
+INTERNAL_IPS = [
+    '127.0.0.1',
 ]
 
 ROOT_URLCONF = 'yatube.urls'
