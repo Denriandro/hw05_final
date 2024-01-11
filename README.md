@@ -1,3 +1,3 @@
-# hw05_final
+-Финальный проект по основам django.
 
-[![CI](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml/badge.svg?branch=master)](https://github.com/yandex-praktikum/hw05_final/actions/workflows/python-app.yml)
+-Социальная сеть с авторизацией и комментариями. Разобрался в основах HTML и вёрстки для бэкенд-разработчика. Создал основу для Django-проекта и добавить в него новые приложения. Применить MVC на практике. Использовал шаблонизатор Django. Освоил Django ORM. Писал тесты. Задеплоил проект в облако Pythonanywhere. Стэк: python, HTML, CSS, Django, Bootstrap, Unittest, Pythonanywhere
